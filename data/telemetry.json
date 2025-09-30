@@ -1,0 +1,17 @@
+{
+  "emea": [
+    {"latency_ms": 150, "uptime": 0.99},
+    {"latency_ms": 190, "uptime": 0.97},
+    {"latency_ms": 170, "uptime": 0.98}
+  ],
+  "apac": [
+    {"latency_ms": 200, "uptime": 0.96},
+    {"latency_ms": 180, "uptime": 0.95},
+    {"latency_ms": 160, "uptime": 0.97}
+  ],
+  "americas": [
+    {"latency_ms": 140, "uptime": 0.99},
+    {"latency_ms": 155, "uptime": 0.98},
+    {"latency_ms": 165, "uptime": 0.97}
+  ]
+}
