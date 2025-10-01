@@ -1,20 +1,19 @@
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 import numpy as np
-import json
-import pathlib
+import pathlib, json
 
 app = FastAPI()
 
-# Enable CORS for any origin, POST allowed
+# Enable CORS for all POST requests
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],       # allow all origins
-    allow_methods=["*"],       # allow all methods (POST, GET, etc.)
-    allow_headers=["*"],       # allow all headers
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
-# Load telemetry data
+# Load telemetry.json (flat list of records)
 DATA_PATH = pathlib.Path(__file__).parent.parent / "data" / "telemetry.json"
 with open(DATA_PATH) as f:
     telemetry = json.load(f)
@@ -27,12 +26,12 @@ async def check_latency(req: Request):
 
     result = {}
     for region in regions:
-        records = telemetry.get(region, [])
+        records = [r for r in telemetry if r["region"] == region]
         if not records:
             continue
 
         latencies = [r["latency_ms"] for r in records]
-        uptimes = [r["uptime"] for r in records]
+        uptimes = [r["uptime_pct"] for r in records]
 
         avg_latency = float(np.mean(latencies))
         p95_latency = float(np.percentile(latencies, 95))
