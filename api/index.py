@@ -6,15 +6,15 @@ import pathlib
 
 app = FastAPI()
 
-# Enable CORS
+# Enable CORS for any origin, POST allowed
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
-    allow_methods=["POST"],
-    allow_headers=["*"],
+    allow_origins=["*"],       # allow all origins
+    allow_methods=["*"],       # allow all methods (POST, GET, etc.)
+    allow_headers=["*"],       # allow all headers
 )
 
-# Load telemetry bundle (assuming it's in project root /data/telemetry.json)
+# Load telemetry data
 DATA_PATH = pathlib.Path(__file__).parent.parent / "data" / "telemetry.json"
 with open(DATA_PATH) as f:
     telemetry = json.load(f)
